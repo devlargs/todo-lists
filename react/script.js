@@ -29,13 +29,17 @@ const Root = () => {
               <h4 className="font-semibold ml-3 text-lg mr-3">
                 React Todo list
               </h4>
-              {/* <span className="border rounded-full border-grey flex items-center cursor-pointer w-12 justify-start">
-                <span className="rounded-full border w-6 h-6 border-grey shadow-inner bg-white shadow"></span>
-              </span>
-
-              <span className="border rounded-full border-grey flex items-center cursor-pointer w-12 bg-green justify-end">
-                <span className="rounded-full border w-6 h-6 border-grey shadow-inner bg-white shadow"></span>
-              </span> */}
+              <button
+                type="button"
+                aria-pressed="false"
+                className="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                <span className="sr-only">Use setting</span>
+                <span
+                  aria-hidden="true"
+                  className="translate-x-0 inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"
+                ></span>
+              </button>
             </div>
 
             <div>
