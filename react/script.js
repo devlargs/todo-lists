@@ -61,43 +61,43 @@ const Root = () => {
               <div class="hidden sm:block sm:ml-6">
                 <div class="flex space-x-4">
                   <a
-                    href="#"
+                    href="/react"
                     class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     React
                   </a>
                   <a
-                    href="#"
+                    href="/angular"
                     class="text-white px-3 py-2 rounded-md text-sm font-small hover:bg-gray-300 hover:text-black"
                   >
                     Angular
                   </a>
                   <a
-                    href="#"
+                    href="/angular"
                     class="text-white px-3 py-2 rounded-md text-sm font-small hover:bg-gray-300 hover:text-black"
                   >
                     Svelte
                   </a>
                   <a
-                    href="#"
+                    href="/vue"
                     class="text-white px-3 py-2 rounded-md text-sm font-small hover:bg-gray-300 hover:text-black"
                   >
                     Vue
                   </a>
                   <a
-                    href="#"
+                    href="/ember"
                     class="text-white px-3 py-2 rounded-md text-sm font-small hover:bg-gray-300 hover:text-black"
                   >
                     Ember
                   </a>
                   <a
-                    href="#"
+                    href="/jquery"
                     class="text-white px-3 py-2 rounded-md text-sm font-small hover:bg-gray-300 hover:text-black"
                   >
                     jQuery
                   </a>
                   <a
-                    href="#"
+                    href="/backbone"
                     class="text-white px-3 py-2 rounded-md text-sm font-small hover:bg-gray-300 hover:text-black"
                   >
                     Backbone
@@ -158,43 +158,43 @@ const Root = () => {
         <div class="sm:hidden">
           <div class="px-2 pt-2 pb-3 space-y-1">
             <a
-              href="#"
+              href="/react"
               class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
             >
               React
             </a>
             <a
-              href="#"
+              href="/angular"
               class="text-white block px-3 py-2 rounded-md text-base font-small"
             >
               Angular
             </a>
             <a
-              href="#"
+              href="/svelte"
               class="text-white block px-3 py-2 rounded-md text-base font-small"
             >
               Svelte
             </a>
             <a
-              href="#"
+              href="/vue"
               class="text-white block px-3 py-2 rounded-md text-base font-smallm"
             >
               Vue
             </a>
             <a
-              href="#"
+              href="/ember"
               class="text-white block px-3 py-2 rounded-md text-base font-small"
             >
               Ember
             </a>
             <a
-              href="#"
+              href="/jquery"
               class="text-white block px-3 py-2 rounded-md text-base font-small"
             >
-              jQeuery
+              jQuery
             </a>
             <a
-              href="#"
+              href="/backbone"
               class="text-white block px-3 py-2 rounded-md text-base font-small"
             >
               Backbone
