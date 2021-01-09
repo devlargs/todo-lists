@@ -165,7 +165,12 @@ const Nav = ({ light, setLight }) => {
               className={`border rounded-full border-grey flex items-center cursor-pointer w-12 ${
                 light ? "bg-gray-200 justify-start" : "bg-gray-800 justify-end"
               }`}
-              onClick={() => setLight((prev) => !prev)}
+              onClick={() =>
+                setLight((prev) => {
+                  localStorage.setItem("light", !prev);
+                  return !prev;
+                })
+              }
             >
               <span className="rounded-full border w-6 h-6 border-grey shadow-inner bg-blue-400 shadow"></span>
             </span>
@@ -174,7 +179,7 @@ const Nav = ({ light, setLight }) => {
               <div>
                 <a
                   className="bg-gray-800 flex text-sm rounded-full focus:outline-none"
-                  href="https://github.com/devlargs/todo-lists"
+                  href="https://github.com/devlargs/todo-lists/tree/main/react"
                   target="_blank"
                 >
                   <span className="sr-only">Ralph Largo | @devlargs</span>
@@ -241,7 +246,9 @@ const Nav = ({ light, setLight }) => {
 };
 
 const Root = () => {
-  const [light, setLight] = React.useState(false);
+  const [light, setLight] = React.useState(
+    localStorage.light ? JSON.parse(localStorage.light) : false
+  );
   const [lists, setLists] = React.useState(
     localStorage.lists ? JSON.parse(localStorage.lists) : []
   );
