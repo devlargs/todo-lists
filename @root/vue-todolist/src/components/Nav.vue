@@ -6,6 +6,7 @@
           <button
             class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
             aria-expanded="false"
+            @click="visible = !visible"
           >
             <span class="sr-only">Open main menu</span>
 
@@ -42,6 +43,7 @@
             </svg>
           </button>
         </div>
+
         <div
           class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
         >
@@ -49,7 +51,7 @@
             class="flex-shrink-0 flex items-center logo-image"
             :click="() => (window.location.pathname = '/')"
           >
-            <img class="block lg:hidden h-8 w-auto" src="" alt="Workflow" />
+            <img class="block lg:hidden h-8 w-auto" src="" alt="" />
             <img
               class="hidden lg:block h-8 w-auto"
               src="https://via.placeholder.com/110x32"
@@ -113,7 +115,7 @@
               'bg-gray-200 justify-start': light,
               'bg-gray-800 justify-end': !light,
             }"
-            @click="toggle()"
+            @click="setLight()"
           >
             <span
               class="rounded-full border w-6 h-6 border-grey shadow-inner bg-blue-400 shadow"
@@ -140,11 +142,11 @@
       </div>
     </div>
 
-    <div class="sm:hidden">
+    <div class="sm:hidden" v-if="visible">
       <div class="px-2 pt-2 pb-3 space-y-1">
         <a
           href="/react"
-          class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+          class="text-white block px-3 py-2 rounded-md text-base font-small"
         >
           React
         </a>
@@ -162,7 +164,7 @@
         </a>
         <a
           href="/vue"
-          class="text-white block px-3 py-2 rounded-md text-base font-smallm"
+          class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
         >
           Vue
         </a>
@@ -193,20 +195,13 @@
 export default {
   name: "Nav",
   props: {
-    setLight: {
-      type: Function,
-    },
-    light: {
-      type: Boolean,
-    },
+    setLight: Function,
+    light: Boolean,
   },
-  methods: {
-    toggle: function() {
-      this.setLight();
-      console.log(this.light);
-      localStorage.setItem("light", this.light);
-      //   localStorage.setI;
-    },
+  data: () => {
+    return {
+      visible: false,
+    };
   },
 };
 </script>

@@ -1,13 +1,6 @@
 <template>
   <div id="app">
-    <Nav
-      :setLight="
-        () => {
-          light = !light;
-        }
-      "
-      :light="light"
-    />
+    <Nav :setLight="toggle" :light="light" />
 
     <div
       class="flex flex-grow items-center justify-center h-full text-gray-600 bg-gray-900 main-container"
@@ -97,6 +90,12 @@ export default {
       lists: localStorage.lists ? JSON.parse(localStorage.lists) : [],
       light: localStorage.light ? JSON.parse(localStorage.light) : false,
     };
+  },
+  methods: {
+    toggle: function() {
+      this.light = !this.light;
+      localStorage.setItem("light", this.light);
+    },
   },
 };
 </script>
