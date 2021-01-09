@@ -1,3 +1,16 @@
+const keyBy = (array, key) =>
+  (array || []).reduce((r, x) => ({ ...r, [key ? x[key] : x]: x }), {});
+
+const maxCharError = () => {
+  swal({
+    icon: "error",
+    title: "Too long..",
+    text: "Task can not be more than 15 characters",
+    showCloseButton: false,
+    showConfirmButton: false,
+  });
+};
+
 const Svg = () => (
   <svg
     id="Layer_1_1_"
@@ -232,18 +245,49 @@ const Root = () => {
   const [lists, setLists] = React.useState(
     localStorage.lists ? JSON.parse(localStorage.lists) : []
   );
+
   const [addInput, setAddInput] = React.useState("");
 
-  const addNewTask = (e) => {
+  const onCreate = (e) => {
     if (addInput) {
       e.preventDefault();
-      setLists((prev) => {
-        const temp = [...prev, { id: +new Date(), task: addInput }];
-        localStorage.setItem("lists", JSON.stringify(temp));
-        return temp;
-      });
-      setAddInput("");
+
+      if (addInput.length >= 15) {
+        maxCharError();
+        return;
+      } else {
+        setLists((prev) => {
+          const temp = [
+            { id: +new Date(), task: addInput, checked: false },
+            ...prev,
+          ];
+          localStorage.setItem("lists", JSON.stringify(temp));
+          return temp;
+        });
+        setAddInput("");
+      }
     }
+  };
+
+  const onRemove = (id) =>
+    setLists((prev) => {
+      const temp = keyBy([...prev], "id");
+      delete temp[id];
+      localStorage.setItem("lists", JSON.stringify(Object.values(temp)));
+      return Object.values(temp);
+    });
+
+  const onFieldChange = (id, key, value) => {
+    if (key === "task" && value.length >= 15) {
+      maxCharError();
+      return;
+    }
+    setLists((prev) => {
+      const temp = keyBy([...prev], "id");
+      temp[id][key] = value;
+      localStorage.setItem("lists", JSON.stringify(Object.values(temp)));
+      return Object.values(temp);
+    });
   };
 
   return (
@@ -252,11 +296,11 @@ const Root = () => {
       <div className="flex items-center justify-center w-screen font-medium main-container">
         <div
           className={`flex flex-grow items-center justify-center h-full text-gray-600 ${
-            light ? "bg-gray-100" : "bg-gray-900"
+            light ? "bg-gray-200" : "bg-gray-900"
           }`}
         >
           <div
-            className={`max-w-full p-8 rounded-lg shadow-lg w-96 ${
+            className={`max-w-full p-8 rounded-lg shadow-lg w-96 list-parent ${
               light ? "bg-white" : "bg-gray-800 text-white"
             }`}
           >
@@ -297,51 +341,70 @@ const Root = () => {
                       ? "hover:bg-gray-200 bg-gray-300 text-gray-900"
                       : "hover:bg-gray-700 bg-gray-900"
                   }`}
-                  onClick={addNewTask}
+                  onClick={(e) => onCreate(e)}
                 >
                   Add
                 </button>
               </div>
             </form>
-
-            {lists.length ? (
-              <React.Fragment>
-                {lists.map((q, i) => (
-                  <div key={i}>
-                    <input className="hidden" type="checkbox" id={q.id} />
-                    <label
-                      className={`flex items-center h-10 px-2 rounded cursor-pointer hover:${
-                        light ? "bg-gray-300" : "bg-gray-900"
-                      }`}
-                      htmlFor={q.id}
-                    >
-                      <span className="flex items-center justify-center w-5 h-5 text-transparent border-2 border-gray-500 rounded-full">
-                        <svg
-                          className="w-4 h-4 fill-current"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </span>
-
+            <div className={`list-container ${!light && "list-scroll-dark"}`}>
+              {lists.length ? (
+                <React.Fragment>
+                  {lists.map((q, i) => (
+                    <div key={i}>
                       <input
-                        type="text"
-                        className="bg-transparent pl-4 text-sm focus:outline-none "
-                        value={q.task}
+                        className="hidden"
+                        type="checkbox"
+                        id={q.id}
+                        checked={q.checked}
+                        onChange={(e) =>
+                          onFieldChange(q.id, "checked", e.target.checked)
+                        }
                       />
-                    </label>
-                  </div>
-                ))}
-              </React.Fragment>
-            ) : (
-              <div />
-            )}
+                      <label
+                        className={`flex items-center h-10 px-2 rounded cursor-pointer hover:${
+                          light ? "bg-gray-300" : "bg-gray-900"
+                        }`}
+                        htmlFor={q.id}
+                      >
+                        <span className="flex items-center justify-center w-5 h-5 text-transparent border-2 border-gray-500 rounded-full">
+                          <svg
+                            className="w-4 h-4 fill-current"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </span>
+
+                        <input
+                          type="text"
+                          className="bg-transparent pl-4 text-sm focus:outline-none "
+                          value={q.task}
+                          onChange={(e) =>
+                            onFieldChange(q.id, "task", e.target.value)
+                          }
+                        />
+
+                        <button
+                          className="text-xs focus:outline-none delete-button"
+                          onClick={() => onRemove(q.id, true)}
+                        >
+                          Delete
+                        </button>
+                      </label>
+                    </div>
+                  ))}
+                </React.Fragment>
+              ) : (
+                <div />
+              )}
+            </div>
           </div>
         </div>
       </div>
