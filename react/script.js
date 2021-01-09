@@ -1,5 +1,6 @@
 const Root = () => {
   const [light, setLight] = React.useState(false);
+  const [navVisible, setNavVisible] = React.useState(false);
 
   return (
     <div>
@@ -8,8 +9,9 @@ const Root = () => {
           <div className="relative flex items-center justify-between h-16">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
               <button
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none"
                 aria-expanded="false"
+                onClick={() => setNavVisible((e) => !e)}
               >
                 <span className="sr-only">Open main menu</span>
 
@@ -142,7 +144,7 @@ const Root = () => {
           </div>
         </div>
 
-        <div className="sm:hidden">
+        <div className={navVisible ? "sm:hidden" : "hidden sm:hidden"}>
           <div className="px-2 pt-2 pb-3 space-y-1">
             <a
               href="/react"
