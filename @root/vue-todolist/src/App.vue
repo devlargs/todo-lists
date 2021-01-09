@@ -1,23 +1,104 @@
 <template>
   <div id="app">
-    <Nav />
+    <Nav
+      :setLight="
+        () => {
+          light = !light;
+        }
+      "
+      :light="light"
+    />
+
+    <div
+      class="flex flex-grow items-center justify-center h-full text-gray-600 bg-gray-900 main-container"
+    >
+      <div class="max-w-full p-8 rounded-lg shadow-lg w-96">
+        <CardTitle />
+
+        <div>
+          <input class="hidden" type="checkbox" id="task_10" />
+          <label
+            class="flex items-center h-10 px-2 rounded cursor-pointer hover"
+            htmlFor="task_10"
+          >
+            <span
+              class="flex items-center justify-center w-5 h-5 text-transparent border-2 border-gray-500 rounded-full"
+            >
+              <svg
+                class="w-4 h-4 fill-current"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </span>
+
+            <input
+              type="text"
+              class="bg-transparent pl-4 text-sm focus:outline-none "
+              defaultValue="Be all round legend"
+            />
+          </label>
+        </div>
+
+        <form>
+          <div
+            class="flex items-center w-full h-8 px-2 mt-2 text-sm font-medium rounded"
+          >
+            <svg
+              class="w-5 h-5 text-gray-400 fill-current"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              />
+            </svg>
+            <input
+              required
+              class="flex-grow h-8 ml-3 bg-transparent focus:outline-none font-medium"
+              type="text"
+              placeholder="Add a new task"
+            />
+            <button
+              class="pl-2 pr-2 pt-1 pb-1 rounded-sm focus:outline-none hover:bg-gray-700 bg-gray-900"
+            >
+              Add
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Nav from './components/Nav.vue'
+import CardTitle from "./components/CardTitle.vue";
+import Nav from "./components/Nav.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Nav
+    CardTitle,
+    Nav,
   },
   data: () => {
     return {
-      light: false
-    }
-  }
-}
+      lists: localStorage.lists ? JSON.parse(localStorage.lists) : [],
+      light: localStorage.light ? JSON.parse(localStorage.light) : false,
+    };
+  },
+};
 </script>
 
 <style>
@@ -104,5 +185,4 @@ input[type="checkbox"]:checked + label input[type="text"] {
   color: lightcoral;
   cursor: progress;
 }
-
 </style>
