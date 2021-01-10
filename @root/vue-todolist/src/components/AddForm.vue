@@ -46,11 +46,6 @@ export default {
     light: Boolean,
     onCreate: Function,
   },
-  data: () => {
-    return {
-      addInput: "",
-    };
-  },
   methods: {
     onAdd: function(event) {
       const $this = this;

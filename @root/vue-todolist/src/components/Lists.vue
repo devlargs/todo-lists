@@ -31,7 +31,10 @@
             :value="q.task"
           />
 
-          <button class="text-xs focus:outline-none delete-button">
+          <button
+            class="text-xs focus:outline-none delete-button"
+            @click="onRemove(q.id)"
+          >
             Delete
           </button>
         </label>
@@ -45,6 +48,7 @@ export default {
   props: {
     light: Boolean,
     lists: Array,
+    onRemove: Function,
   },
 };
 </script>

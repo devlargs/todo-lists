@@ -11,8 +11,8 @@
         :class="light ? 'bg-white' : 'bg-gray-800 text-white'"
       >
         <CardTitle />
-        <AddForm :light="light" :onCreate="onCreate" />
-        <Lists :lists="lists" :light="light" />
+        <AddForm :light="light" :onCreate="onCreate" :addInput="addInput" />
+        <Lists :lists="lists" :light="light" :onRemove="onRemove" />
       </div>
     </div>
   </div>
@@ -34,11 +34,18 @@ export default {
   },
   data: () => {
     return {
+      addInput: "",
       lists: localStorage.lists ? JSON.parse(localStorage.lists) : [],
       light: localStorage.light ? JSON.parse(localStorage.light) : false,
     };
   },
   methods: {
+    keyBy: function(array, key) {
+      return (array || []).reduce(
+        (r, x) => ({ ...r, [key ? x[key] : x]: x }),
+        {}
+      );
+    },
     maxCharError: function() {
       alert("too long");
     },
@@ -46,16 +53,34 @@ export default {
       this.light = !this.light;
       localStorage.setItem("light", this.light);
     },
-    onCreate: function(e, task, callback) {
+    onCreate: function(e, task) {
       if (task.length >= 15) {
         this.maxCharError();
       }
 
       if (task) {
         this.lists = [{ id: +new Date(), task, checked: false }, ...this.lists];
-        callback();
+        e.preventDefault();
         localStorage.setItem("lists", JSON.stringify(this.lists));
       }
+    },
+    onFieldChange: function() {
+      // if (key === "task" && value.length >= 15) {
+      //     maxCharError();
+      //     return;
+      //   }
+      // setLists((prev) => {
+      // const temp = this.keyBy([...this.lists], "id");
+      // temp[id][key] = value;
+      // localStorage.setItem("lists", JSON.stringify(Object.values(temp)));
+      // return Object.values(temp);
+      // });
+    },
+    onRemove: function(id) {
+      const temp = this.keyBy([...this.lists], "id");
+      delete temp[id];
+      this.lists = Object.values(temp);
+      localStorage.setItem("lists", JSON.stringify(Object.values(temp)));
     },
   },
 };
