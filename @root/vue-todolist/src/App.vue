@@ -81,17 +81,20 @@ export default {
     },
     onFieldChange: function(id, key, value) {
       const temp = this.keyBy([...this.lists], "id");
-
-      if (key === "task" && value.length >= 15) {
-        this.maxCharError();
-        return;
-      }
-
       if (key === "checked") {
         temp[id].checked = !temp[id].checked;
         const newLists = Object.values(temp);
         this.lists = newLists;
         localStorage.setItem("lists", JSON.stringify(newLists));
+      } else {
+        if (key === "task" && value.length >= 15) {
+          this.maxCharError();
+        } else {
+          const newLists = Object.values(temp);
+          temp[id].task = value;
+          this.lists = newLists;
+          localStorage.setItem("lists", JSON.stringify(newLists));
+        }
       }
     },
     onRemove: function(id) {

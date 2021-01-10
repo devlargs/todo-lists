@@ -30,6 +30,7 @@
             type="text"
             class="bg-transparent pl-4 text-sm focus:outline-none "
             :value="q.task"
+            @change="onFieldChange(q.id, 'task', $event.target.value)"
           />
 
           <button
