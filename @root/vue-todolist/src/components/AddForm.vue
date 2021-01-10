@@ -23,10 +23,10 @@
         type="text"
         placeholder="Add a new task"
         :value="addInput"
-        @change="addInput = $event.target.value"
+        @change="setAddInput($event.target.value)"
       />
       <button
-        @click="onAdd($event)"
+        @click="onCreate($event)"
         class="pl-2 pr-2 pt-1 pb-1 rounded-sm focus:outline-none"
         :class="
           light
@@ -45,14 +45,8 @@ export default {
   props: {
     light: Boolean,
     onCreate: Function,
-  },
-  methods: {
-    onAdd: function(event) {
-      const $this = this;
-      this.onCreate(event, this.addInput, function() {
-        $this.addInput = "";
-      });
-    },
+    addInput: String,
+    setAddInput: Function,
   },
 };
 </script>

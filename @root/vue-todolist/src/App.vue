@@ -11,7 +11,12 @@
         :class="light ? 'bg-white' : 'bg-gray-800 text-white'"
       >
         <CardTitle />
-        <AddForm :light="light" :onCreate="onCreate" :addInput="addInput" />
+        <AddForm
+          :light="light"
+          :onCreate="onCreate"
+          :addInput="addInput"
+          :setAddInput="setAddInput"
+        />
         <Lists :lists="lists" :light="light" :onRemove="onRemove" />
       </div>
     </div>
@@ -40,6 +45,9 @@ export default {
     };
   },
   methods: {
+    setAddInput: function(value) {
+      this.addInput = value;
+    },
     keyBy: function(array, key) {
       return (array || []).reduce(
         (r, x) => ({ ...r, [key ? x[key] : x]: x }),
@@ -53,7 +61,8 @@ export default {
       this.light = !this.light;
       localStorage.setItem("light", this.light);
     },
-    onCreate: function(e, task) {
+    onCreate: function(e) {
+      const task = this.addInput;
       if (task.length >= 15) {
         this.maxCharError();
       }
@@ -62,6 +71,7 @@ export default {
         this.lists = [{ id: +new Date(), task, checked: false }, ...this.lists];
         e.preventDefault();
         localStorage.setItem("lists", JSON.stringify(this.lists));
+        this.addInput = "";
       }
     },
     onFieldChange: function() {
