@@ -61,6 +61,7 @@ export default {
     },
     maxCharError: function() {
       alert("too long");
+      return;
     },
     toggle: function() {
       this.light = !this.light;
