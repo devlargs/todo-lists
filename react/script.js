@@ -127,7 +127,7 @@ const Nav = ({ light, setLight }) => {
                   Angular
                 </a>
                 <a
-                  href="/angular"
+                  href="/svelte"
                   className="text-white px-3 py-2 rounded-md text-sm font-small hover:bg-gray-300 hover:text-black"
                 >
                   Svelte
