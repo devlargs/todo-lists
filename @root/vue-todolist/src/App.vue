@@ -3,41 +3,14 @@
     <Nav :setLight="toggle" :light="light" />
 
     <div
-      class="flex flex-grow items-center justify-center h-full text-gray-600 bg-gray-900 main-container"
+      class="flex flex-grow items-center justify-center h-full text-gray-600 main-container"
+      :class="light ? 'bg-gray-200' : 'bg-gray-900'"
     >
-      <div class="max-w-full p-8 rounded-lg shadow-lg w-96">
+      <div
+        class="max-w-full p-8 rounded-lg shadow-lg w-96 list-parent"
+        :class="light ? 'bg-white' : 'bg-gray-800 text-white'"
+      >
         <CardTitle />
-
-        <div>
-          <input class="hidden" type="checkbox" id="task_10" />
-          <label
-            class="flex items-center h-10 px-2 rounded cursor-pointer hover"
-            htmlFor="task_10"
-          >
-            <span
-              class="flex items-center justify-center w-5 h-5 text-transparent border-2 border-gray-500 rounded-full"
-            >
-              <svg
-                class="w-4 h-4 fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </span>
-
-            <input
-              type="text"
-              class="bg-transparent pl-4 text-sm focus:outline-none "
-              defaultValue="Be all round legend"
-            />
-          </label>
-        </div>
 
         <form>
           <div
@@ -64,12 +37,19 @@
               placeholder="Add a new task"
             />
             <button
-              class="pl-2 pr-2 pt-1 pb-1 rounded-sm focus:outline-none hover:bg-gray-700 bg-gray-900"
+              class="pl-2 pr-2 pt-1 pb-1 rounded-sm focus:outline-none"
+              :class="
+                light
+                  ? 'hover:bg-gray-200 bg-gray-300 text-gray-900'
+                  : 'hover:bg-gray-700 bg-gray-900'
+              "
             >
               Add
             </button>
           </div>
         </form>
+
+        <Lists :lists="lists" :light="light" />
       </div>
     </div>
   </div>
@@ -77,12 +57,14 @@
 
 <script>
 import CardTitle from "./components/CardTitle.vue";
+import Lists from "./components/Lists.vue";
 import Nav from "./components/Nav.vue";
 
 export default {
   name: "App",
   components: {
     CardTitle,
+    Lists,
     Nav,
   },
   data: () => {
@@ -90,6 +72,9 @@ export default {
       lists: localStorage.lists ? JSON.parse(localStorage.lists) : [],
       light: localStorage.light ? JSON.parse(localStorage.light) : false,
     };
+  },
+  mounted: function() {
+    console.log(this.lists);
   },
   methods: {
     toggle: function() {

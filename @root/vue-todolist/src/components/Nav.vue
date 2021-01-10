@@ -164,7 +164,7 @@
         </a>
         <a
           href="/vue"
-          class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+          class="text-white block px-3 py-2 rounded-md text-base font-medium bg-gray-900 "
         >
           Vue
         </a>
