@@ -17,7 +17,12 @@
           :addInput="addInput"
           :setAddInput="setAddInput"
         />
-        <Lists :lists="lists" :light="light" :onRemove="onRemove" />
+        <Lists
+          :lists="lists"
+          :light="light"
+          :onRemove="onRemove"
+          :onFieldChange="onFieldChange"
+        />
       </div>
     </div>
   </div>
@@ -74,15 +79,21 @@ export default {
         this.addInput = "";
       }
     },
-    onFieldChange: function() {
+    onFieldChange: function(key, id, value) {
       // if (key === "task" && value.length >= 15) {
       //     maxCharError();
       //     return;
       //   }
       // setLists((prev) => {
-      // const temp = this.keyBy([...this.lists], "id");
-      // temp[id][key] = value;
-      // localStorage.setItem("lists", JSON.stringify(Object.values(temp)));
+      console.log({
+        key,
+        id,
+        value,
+      });
+      const temp = this.keyBy([...this.lists], "id");
+      temp[id][key] = value;
+      localStorage.setItem("lists", JSON.stringify(Object.values(temp)));
+      this.lists = temp;
       // return Object.values(temp);
       // });
     },

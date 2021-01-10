@@ -2,7 +2,13 @@
   <div class="list-container" v-bind:class="{ 'list-scroll-dark': !light }">
     <div v-if="lists.length">
       <div v-for="(q, i) in lists" :key="i">
-        <input class="hidden" type="checkbox" />
+        <input
+          @click="onFieldChange(q.id, 'checked', $event.target.checked)"
+          :checked="q.checked"
+          class="hidden"
+          type="checkbox"
+          :id="q.id"
+        />
         <label
           class="flex items-center h-10 px-2 rounded cursor-pointer"
           :class="light ? 'hover:bg-gray-300' : 'hover:bg-gray-300'"
@@ -49,6 +55,7 @@ export default {
     light: Boolean,
     lists: Array,
     onRemove: Function,
+    onFieldChange: Function,
   },
 };
 </script>
