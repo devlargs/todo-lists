@@ -79,23 +79,20 @@ export default {
         this.addInput = "";
       }
     },
-    onFieldChange: function(key, id, value) {
-      // if (key === "task" && value.length >= 15) {
-      //     maxCharError();
-      //     return;
-      //   }
-      // setLists((prev) => {
-      console.log({
-        key,
-        id,
-        value,
-      });
+    onFieldChange: function(id, key, value) {
       const temp = this.keyBy([...this.lists], "id");
-      temp[id][key] = value;
-      localStorage.setItem("lists", JSON.stringify(Object.values(temp)));
-      this.lists = temp;
-      // return Object.values(temp);
-      // });
+
+      if (key === "task" && value.length >= 15) {
+        this.maxCharError();
+        return;
+      }
+
+      if (key === "checked") {
+        temp[id].checked = !temp[id].checked;
+        const newLists = Object.values(temp);
+        this.lists = newLists;
+        localStorage.setItem("lists", JSON.stringify(newLists));
+      }
     },
     onRemove: function(id) {
       const temp = this.keyBy([...this.lists], "id");
