@@ -11,44 +11,7 @@
         :class="light ? 'bg-white' : 'bg-gray-800 text-white'"
       >
         <CardTitle />
-
-        <form>
-          <div
-            class="flex items-center w-full h-8 px-2 mt-2 text-sm font-medium rounded"
-          >
-            <svg
-              class="w-5 h-5 text-gray-400 fill-current"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-              />
-            </svg>
-            <input
-              required
-              class="flex-grow h-8 ml-3 bg-transparent focus:outline-none font-medium"
-              type="text"
-              placeholder="Add a new task"
-            />
-            <button
-              class="pl-2 pr-2 pt-1 pb-1 rounded-sm focus:outline-none"
-              :class="
-                light
-                  ? 'hover:bg-gray-200 bg-gray-300 text-gray-900'
-                  : 'hover:bg-gray-700 bg-gray-900'
-              "
-            >
-              Add
-            </button>
-          </div>
-        </form>
-
+        <AddForm :light="light" :onCreate="onCreate" />
         <Lists :lists="lists" :light="light" />
       </div>
     </div>
@@ -56,6 +19,7 @@
 </template>
 
 <script>
+import AddForm from "./components/AddForm.vue";
 import CardTitle from "./components/CardTitle.vue";
 import Lists from "./components/Lists.vue";
 import Nav from "./components/Nav.vue";
@@ -63,6 +27,7 @@ import Nav from "./components/Nav.vue";
 export default {
   name: "App",
   components: {
+    AddForm,
     CardTitle,
     Lists,
     Nav,
@@ -73,13 +38,24 @@ export default {
       light: localStorage.light ? JSON.parse(localStorage.light) : false,
     };
   },
-  mounted: function() {
-    console.log(this.lists);
-  },
   methods: {
+    maxCharError: function() {
+      alert("too long");
+    },
     toggle: function() {
       this.light = !this.light;
       localStorage.setItem("light", this.light);
+    },
+    onCreate: function(e, task, callback) {
+      if (task.length >= 15) {
+        this.maxCharError();
+      }
+
+      if (task) {
+        this.lists = [{ id: +new Date(), task, checked: false }, ...this.lists];
+        callback();
+        localStorage.setItem("lists", JSON.stringify(this.lists));
+      }
     },
   },
 };
