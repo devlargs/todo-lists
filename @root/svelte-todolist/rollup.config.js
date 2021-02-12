@@ -32,13 +32,15 @@ function serve() {
   };
 }
 
+console.log(process.env.NODE_ENV);
+
 export default {
   input: "src/main.js",
   output: {
     sourcemap: true,
     format: "iife",
     name: "app",
-    file: "../../svelte/build/bundle.js",
+    file: "../../@assets/svelte/build/bundle.js",
   },
   plugins: [
     svelte({
