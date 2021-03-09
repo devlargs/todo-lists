@@ -5,7 +5,6 @@ import Task from "./components/Task";
 const Content = () => {
   const [value, setValue] = useState("");
   const [lists, setLists] = useState([]);
-  const [toggle, setToggle] = useState(false);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -16,14 +15,18 @@ const Content = () => {
     setValue("");
   };
 
-  // const deleteTask = (id) => {
-  //   console.log(lists);
-  //   const temp = ([...lists], "id");
-  //   const index = temp.indexOf(id.target.value);
-  //   console.log(index, "GG");
-  //   console.log(temp, "eto yun");
-  //   // console.log(delete temp[id], "here");
-  // };
+  const deleteTask = (id) => {
+    // console.log(lists);
+    // const temp = ([...lists], "id");
+    // const index = temp.indexOf(id.target.value);
+    // console.log(index, "GG");
+    // console.log(temp, "eto yun");
+    // console.log(delete temp[id], "here");
+    const temp = lists.filter((q) => q.id !== id);
+    console.log(temp, "here");
+    // delete temp[id];
+    setLists({ temp: lists });
+  };
 
   return (
     <div className="flex items-center justify-center w-screen font-medium main-container ">
@@ -67,52 +70,14 @@ const Content = () => {
               </button>
             </div>
           </form>
-
-          {lists.map((form) => {
+          {lists.map(({ task, id, checked }) => {
             return (
-              <div className="list-container list-scroll-dark">
-                <div>
-                  <input
-                    className="hidden"
-                    type="checkbox"
-                    id="1615288285729"
-                    checked={form.checked}
-                    key={form.id}
-                  />
-                  <label
-                    className="flex items-center h-10 px-2 rounded cursor-pointer hover:bg-gray-900"
-                    htmlFor="1615288285729"
-                  >
-                    <span className="flex items-center justify-center w-5 h-5 text-transparent border-2 border-gray-500 rounded-full">
-                      <svg
-                        className="w-4 h-4 fill-current"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        ></path>
-                      </svg>
-                    </span>
-                    <input
-                      type="text"
-                      className="bg-transparent pl-4 text-sm focus:outline-none "
-                      value={form.task}
-                      key={form.id}
-                    />
-                    <button
-                      className="text-xs focus:outline-none delete-button"
-                      key={form.id}
-                      // onClick={deleteTask}
-                    >
-                      Delete
-                    </button>
-                  </label>
-                </div>
-              </div>
+              <Task
+                task={task}
+                id={id}
+                checked={checked}
+                deleteTask={deleteTask}
+              />
             );
           })}
         </div>
