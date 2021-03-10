@@ -120,7 +120,6 @@ const Navbar = ({ light, setLight }) => {
                 <a
                   className="bg-gray-800 flex text-sm rounded-full focus:outline-none"
                   href="https://github.com/devlargs/todo-lists/tree/main/react"
-                  target="_blank"
                 >
                   <span className="sr-only">Ralph Largo | @devlargs</span>
                   <img
