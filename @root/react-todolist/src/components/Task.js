@@ -1,18 +1,18 @@
-const Task = ({ task, id, checked, deleteTask }) => {
+const Task = ({ task, id, checked, deleteTask, key, onFieldChange }) => {
   return (
     <>
       <div className="list-container list-scroll-dark">
-        <div>
+        <div key={key}>
           <input
             className="hidden"
             type="checkbox"
-            id="1615288285729"
-            checked={checked}
-            key={id}
+            id={id}
+            value={checked}
+            onChange={(e) => onFieldChange(id, e.target.checked, "checked")}
           />
           <label
             className="flex items-center h-10 px-2 rounded cursor-pointer hover:bg-gray-900"
-            htmlFor="1615288285729"
+            htmlFor={id}
           >
             <span className="flex items-center justify-center w-5 h-5 text-transparent border-2 border-gray-500 rounded-full">
               <svg
@@ -32,11 +32,11 @@ const Task = ({ task, id, checked, deleteTask }) => {
               type="text"
               className="bg-transparent pl-4 text-sm focus:outline-none "
               value={task}
-              key={id}
+              onChange={(e) => onFieldChange(id, e.target.value, "task")}
             />
             <button
               className="text-xs focus:outline-none delete-button"
-              key={id}
+              id={id}
               onClick={deleteTask}
             >
               Delete

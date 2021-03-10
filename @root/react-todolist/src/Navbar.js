@@ -1,4 +1,8 @@
-function Navbar() {
+import { useState } from "react";
+
+const Navbar = ({ light, setLight }) => {
+  const [navIsVisible, setNavIsVisible] = useState(false);
+
   return (
     <nav className="bg-gray-800">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -7,6 +11,7 @@ function Navbar() {
             <button
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none"
               aria-expanded="false"
+              onClick={() => setNavIsVisible((e) => !e)}
             >
               <span className="sr-only">Open main menu</span>
               <svg
@@ -102,7 +107,12 @@ function Navbar() {
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <span className="border rounded-full border-grey flex items-center cursor-pointer w-12 bg-gray-800 justify-end">
+            <span
+              className={`border rounded-full border-grey flex items-center cursor-pointer w-12 ${
+                light ? "bg-gray-200 justify-start" : "bg-gray-800 justify-end"
+              }`}
+              onClick={() => setLight((prev) => !prev)}
+            >
               <span className="rounded-full border w-6 h-6 border-grey shadow-inner bg-blue-400 shadow"></span>
             </span>
             <div className="ml-3 relative">
@@ -124,7 +134,7 @@ function Navbar() {
           </div>
         </div>
       </div>
-      <div className="hidden sm:hidden">
+      <div className={navIsVisible ? "sm:hidden" : "hidden sm:hidden"}>
         <div className="px-2 pt-2 pb-3 space-y-1">
           <a
             href="/react"
@@ -172,6 +182,6 @@ function Navbar() {
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;
