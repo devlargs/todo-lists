@@ -99,13 +99,13 @@ const Content = () => {
             {lists.map((q, i) => {
               return (
                 <Task
+                  light={light}
                   key={i}
                   task={q.task}
                   id={q.id}
                   checked={q.checked}
                   deleteTask={() => deleteTask(q.id)}
                   onFieldChange={onFieldChange}
-                  onChecked={(e) => onFieldChange()}
                 />
               );
             })}

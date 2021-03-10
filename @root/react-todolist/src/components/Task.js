@@ -1,4 +1,4 @@
-const Task = ({ task, id, checked, deleteTask, key, onFieldChange }) => {
+const Task = ({ task, id, checked, deleteTask, key, onFieldChange, light }) => {
   return (
     <>
       <div className="list-container list-scroll-dark">
@@ -11,7 +11,9 @@ const Task = ({ task, id, checked, deleteTask, key, onFieldChange }) => {
             onChange={(e) => onFieldChange(id, e.target.checked, "checked")}
           />
           <label
-            className="flex items-center h-10 px-2 rounded cursor-pointer hover:bg-gray-900"
+            className={`flex items-center h-10 px-2 rounded cursor-pointer hover:${
+              light ? "bg-gray-300" : "bg-gray-900"
+            }`}
             htmlFor={id}
           >
             <span className="flex items-center justify-center w-5 h-5 text-transparent border-2 border-gray-500 rounded-full">
