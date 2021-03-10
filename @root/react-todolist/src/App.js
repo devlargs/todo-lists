@@ -6,7 +6,6 @@ import Content from "./Content";
 function App() {
   return (
     <>
-      <Navbar />
       <Content />
     </>
   );
